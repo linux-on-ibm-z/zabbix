@@ -91,7 +91,8 @@ static zbx_uint32_t	message_pack_data(zbx_ipc_message_t *message, zbx_packed_fie
 			/* data packing */
 			if (PACKED_FIELD_STRING == fields[i].type)
 			{
-				memcpy(offset, (zbx_uint32_t *)&field_size, sizeof(zbx_uint32_t));
+				zbx_uint32_t new_field_size = (zbx_uint32_t)field_size;
+				memcpy(offset, (zbx_uint32_t *)&new_field_size, sizeof(zbx_uint32_t));
 				if (0 != field_size && NULL != fields[i].value)
 					memcpy(offset + sizeof(zbx_uint32_t), fields[i].value, field_size);
 				field_size += sizeof(zbx_uint32_t);
